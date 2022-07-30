@@ -322,6 +322,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - install_aws_cli
       - install_nodejs
       - run:
           name: Backend smoke test.
@@ -406,14 +407,14 @@ workflows:
               only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      # - run-migrations:
-      #     requires: [configure-infrastructure]
+      - run-migrations:
+          requires: [configure-infrastructure]
       - deploy-frontend:
-      #     requires: [run-migrations]
-            requires: [configure-infrastructure]
+          requires: [run-migrations]
+          # requires: [configure-infrastructure]
       - deploy-backend:
-      #     requires: [run-migrations]
-            requires: [configure-infrastructure]
+          requires: [run-migrations]
+          # requires: [configure-infrastructure]
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
