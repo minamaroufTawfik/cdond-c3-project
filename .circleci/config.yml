@@ -60,7 +60,7 @@ commands:
       steps:
         - run:
             name: Revert migrations
-            # Add when this will run
+            when: on_fail
             command: |
               # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
               SUCCESS = $(curl https://kvdb.io/${KVDB_BUCKET_ID}/migrations_<< parameters.OldWorkflowID >>)
